@@ -3,6 +3,7 @@ package model
 import (
 	"demo1/MyBlog/utils"
 	"fmt"
+	"time"
 
 	_ "github.com/garyburd/redigo/redis"
 	"github.com/jinzhu/gorm"
@@ -23,8 +24,18 @@ func InitDb() {
 		return
 	}
 
+	//禁用默认表的复数形式
 	db.SingularTable(true)
-	db.AutoMigrate(&User{})
+	//迁移: 创建表或者更新表
+	db.AutoMigrate(&User{}, &Article{}, &Comment{}, &UserArticle{}, &Profile{})
+
+	//设置连接池的最大闲置连接数
+	db.DB().SetMaxIdleConns(10)
+	//设置连接池的最大连接数量
+	db.DB().SetMaxOpenConns(100)
+	//设置连接的最大复用时间
+	db.DB().SetConnMaxLifetime(10 * time.Second)
+
 }
 
 func InitRedis() {
