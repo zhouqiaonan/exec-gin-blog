@@ -1,11 +1,13 @@
 package model
 
 import (
+	"context"
 	"demo1/MyBlog/utils"
 	"fmt"
 	"time"
 
 	_ "github.com/garyburd/redigo/redis"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"github.com/redis/go-redis/v9"
 )
@@ -39,5 +41,18 @@ func InitDb() {
 }
 
 func InitRedis() {
+	Redis = redis.NewClient(&redis.Options{
+		Addr:     utils.RedisAddr,
+		Password: utils.RedisPassword,
+		DB:       utils.RedisDB,
+	})
 
+	// 2. 定义一个 context
+	ctx := context.Background()
+
+	_, err = Redis.Ping(ctx).Result()
+	if err != nil {
+		fmt.Println("Redis 链接失败")
+		return
+	}
 }
