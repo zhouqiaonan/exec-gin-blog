@@ -8,6 +8,7 @@ require (
 	github.com/bytedance/sonic/loader v0.5.1 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/cloudwego/base64x v0.1.7 // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/gabriel-vasile/mimetype v1.4.13 // indirect
 	github.com/garyburd/redigo v1.6.4 // indirect
 	github.com/gin-contrib/sse v1.1.1 // indirect
